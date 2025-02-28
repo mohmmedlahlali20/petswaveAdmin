@@ -3,6 +3,9 @@ import DashboardLayouts from "../layouts/Layouts.tsx";
 import {
     Dashboard
 } from "../pages";
+import {
+    LoginComponent
+} from "../auth";
 
 
 const router = createBrowserRouter([
@@ -15,6 +18,14 @@ const router = createBrowserRouter([
                 element: <Dashboard/>
             }
         ]
+    },
+    {
+        path: '*',
+        element: <h1>Not Found</h1>
+    },
+    {
+        path: '/login',
+        element: <LoginComponent/>
     }
 ])
 
