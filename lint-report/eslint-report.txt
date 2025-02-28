@@ -1,0 +1,6 @@
+ESLint Report
+
+File: c:\Users\mohmm\Desktop\ProjetFileRouge\petswave-admin\tailwind.config.js
+  [4, 5] Strings must use singlequote. (quotes)
+  [5, 5] Strings must use singlequote. (quotes)
+
