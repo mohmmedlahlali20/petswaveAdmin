@@ -1,15 +1,14 @@
-import { Sidebar } from './components/Sidebar'
+import {RouterProvider} from "react-router-dom";
+import router from "./router/router.tsx";
 
 
 function App() {
 
-  return (
-    <>
-    <Sidebar/>
-    <h1 className='text-3xl text-red-400'>FUCK</h1>
-
-    </>
-  )
+    return (
+        <>
+            <RouterProvider router={router}/>
+        </>
+    )
 }
 
 export default App
