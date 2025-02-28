@@ -1,7 +1,17 @@
-import { Outlet } from 'react-router-dom'
+import {Outlet, useNavigate} from 'react-router-dom'
 import { Sidebar } from './Sidebar'
+import {useAppSelector} from "../hooks/useAppDispatch.ts";
+import {useEffect} from "react";
 
 export default function DashboardLayouts() {
+    const {isAuthenticated} = useAppSelector((state)=>state.User)
+const router = useNavigate()
+    useEffect(() => {
+        if (isAuthenticated) {
+            console.log("User is not authenticated!");
+            router('/login')
+        }
+    }, [isAuthenticated]);
   return (
 
       <div className="flex min-h-screen ">
