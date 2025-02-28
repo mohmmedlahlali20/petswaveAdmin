@@ -4,3 +4,9 @@ File: c:\Users\mohmm\Desktop\ProjetFileRouge\petswave-admin\tailwind.config.js
   [4, 5] Strings must use singlequote. (quotes)
   [5, 5] Strings must use singlequote. (quotes)
 
+File: c:\Users\mohmm\Desktop\ProjetFileRouge\petswave-admin\src\hooks\useAppDispatch.ts
+  [8, 54] 'state' is defined but never used. (no-unused-vars)
+
+File: c:\Users\mohmm\Desktop\ProjetFileRouge\petswave-admin\src\axios\path.ts
+  [22, 11] Parsing error: Expression expected. (null)
+
