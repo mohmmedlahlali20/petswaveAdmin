@@ -1,4 +1,4 @@
-import {createBrowserRouter} from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import DashboardLayouts from "../layouts/Layouts.tsx";
 import {
     Dashboard
@@ -6,31 +6,41 @@ import {
 import {
     LoginComponent
 } from "../auth";
-import {ListPets} from "../Pets";
+import { 
+    ListPets
+ } from "../Pets";
+import { 
+    CategoryList 
+} from "../category";
+import { NotFoundPets } from "../pages/notFound.tsx";
 
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <DashboardLayouts/>,
+        element: <DashboardLayouts />,
         children: [
             {
                 path: '/',
-                element: <Dashboard/>
+                element: <Dashboard />
             },
             {
                 path: '/Pets',
-                element: <ListPets/>
+                element: <ListPets />
+            },
+            {
+                path: '/Category',
+                element: <CategoryList />
             }
         ]
     },
     {
         path: '*',
-        element: <h1>Not Found</h1>
+        element: <NotFoundPets/>
     },
     {
         path: '/login',
-        element: <LoginComponent/>
+        element: <LoginComponent />
     }
 ])
 
