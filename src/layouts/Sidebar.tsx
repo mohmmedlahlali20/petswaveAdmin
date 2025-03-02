@@ -2,6 +2,8 @@
 
 import { Home, Settings, Users, ShoppingCart, BarChart, Mail, Bell, Calendar, HelpCircle, Menu, X, PawPrint} from "lucide-react";
 import { useState } from "react";
+import { useAppSelector } from "../hooks/useAppDispatch";
+import Default from '../assets/default.png'
 
 type NavItem = {
     title: string;
@@ -24,6 +26,11 @@ const navItems: NavItem[] = [
 export function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
+    const {user, isLoading, error}= useAppSelector((state) => state.User)
+
+    console.log('====================================');
+    console.log(user);
+    console.log('====================================');
 
     return (
         <>
@@ -93,11 +100,11 @@ export function Sidebar() {
                     <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="flex items-center">
                             <div className="h-9 w-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-medium">
-                                JD
+                                <img src={user?.avatar?? Default} alt="Default" />
                             </div>
                             <div className={`ml-3 text-gray-900 dark:text-white ${collapsed ? "hidden" : "block"}`}>
-                                <p className="text-sm font-medium">John Doe</p>
-                                <p className="text-xs text-gray-500 dark:text-gray-400">john@example.com</p>
+                                <p className="text-sm font-medium">{user?.firstName}</p>
+                                <p className="text-xs text-gray-500 dark:text-gray-400">{user?.email}</p>
                             </div>
                         </div>
                     </div>
