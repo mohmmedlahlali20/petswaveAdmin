@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import UserReducer from '../Slice/userSlice.ts'
+import PetsReducer from '../Slice/petSlice.ts'
 
 
 
 const store = configureStore({
   reducer: {
-    User: UserReducer
+    User: UserReducer,
+    pet: PetsReducer,
   },
 });
 
