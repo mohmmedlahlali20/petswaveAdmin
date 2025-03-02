@@ -6,6 +6,7 @@ import {
 import {
     LoginComponent
 } from "../auth";
+import {ListPets} from "../Pets";
 
 
 const router = createBrowserRouter([
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Dashboard/>
+            },
+            {
+                path: '/Pets',
+                element: <ListPets/>
             }
         ]
     },
