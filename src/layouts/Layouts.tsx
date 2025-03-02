@@ -7,7 +7,7 @@ export default function DashboardLayouts() {
     const { isAuthenticated } = useAppSelector((state) => state.User)
     const router = useNavigate()
     useEffect(() => {
-        if (isAuthenticated) {
+        if (!isAuthenticated) {
             console.log("User is not authenticated!");
             router('/login')
         }
