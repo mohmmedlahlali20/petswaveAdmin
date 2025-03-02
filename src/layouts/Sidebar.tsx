@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Settings, Users, ShoppingCart, BarChart, Mail, Bell, Calendar, HelpCircle, Menu, X } from "lucide-react";
+import { Home, Settings, Users, ShoppingCart, BarChart, Mail, Bell, Calendar, HelpCircle, Menu, X, PawPrint} from "lucide-react";
 import { useState } from "react";
 
 type NavItem = {
@@ -12,7 +12,7 @@ type NavItem = {
 const navItems: NavItem[] = [
     { title: "Dashboard", href: "/", icon: Home },
     { title: "Analytics", href: "/analytics", icon: BarChart },
-    { title: "Products", href: "/products", icon: ShoppingCart },
+    { title: "Pets", href: "/Pets", icon: PawPrint },
     { title: "Customers", href: "/customers", icon: Users },
     { title: "Messages", href: "/messages", icon: Mail },
     { title: "Calendar", href: "/calendar", icon: Calendar },
