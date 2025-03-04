@@ -23,14 +23,15 @@ const initialState: {
 
 export const addPets = createAsyncThunk(
     "pets/add",
-    async (petData: Pets, { rejectWithValue }) => {
+    async ({ petData, images }: { petData: Pets; images: File[] }, { rejectWithValue }) => {
         try {
-            return await addPetsApi(petData);
+            return await addPetsApi(petData, images);
         } catch (err: any) {
             return rejectWithValue(err.message);
         }
     }
-)
+);
+
 
 export const getPets = createAsyncThunk('pets/get',
     async (_, { rejectWithValue }) => {
@@ -67,16 +68,16 @@ const petSlice = createSlice({
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getPets.fulfilled, (state, action: PayloadAction<Pets[]>) => {
-                state.pets = action.payload;
-                state.isLoading = false;
-                state.error = null;
-            })
-            .addCase(getPets.rejected, (state, action) => {
-                state.isLoading = false;
-                state.error = action.payload as string;
-            })
-    }
+        .addCase(getPets.fulfilled, (state, action: PayloadAction<Pets[]>) => {
+            state.pets = action.payload;
+            state.isLoading = false;
+            state.error = null;
+        })
+        .addCase(getPets.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload as string;
+        })
+}
 });
 
 
