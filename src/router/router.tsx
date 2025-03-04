@@ -6,13 +6,18 @@ import {
 import {
     LoginComponent
 } from "../auth";
-import { 
+import {
     ListPets
- } from "../Pets";
-import { 
-    CategoryList 
+} from "../Pets";
+import {
+    CategoryList
 } from "../category";
-import { NotFoundPets } from "../pages/notFound.tsx";
+import {
+    NotFoundPets
+} from "../pages/notFound.tsx";
+import {
+    GetUsers
+} from "../users/index.ts";
 
 
 const router = createBrowserRouter([
@@ -31,13 +36,18 @@ const router = createBrowserRouter([
             {
                 path: '/Category',
                 element: <CategoryList />
-            }
+            },
+            {
+                path: '/users',
+                element: <GetUsers />
+            },
+            {
+                path: '*',
+                element: <NotFoundPets />
+            },
         ]
     },
-    {
-        path: '*',
-        element: <NotFoundPets/>
-    },
+    
     {
         path: '/login',
         element: <LoginComponent />
