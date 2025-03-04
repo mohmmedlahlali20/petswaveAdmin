@@ -2,33 +2,32 @@ import axios from "axios";
 import { Pets } from "../../../constant/type";
 import path from "../../../axios/path";
 
-const addPetsApi = async (petData: Pets) => {
+
+const addPetsApi = async (petData: Pets, images: File[]) => {
     try {
         const formData = new FormData();
 
-        Object.entries(petData).forEach(([key, value]) => {
-            if (key === "images" && Array.isArray(value)) {
-                value.forEach((image) => formData.append("images", image));
-            } else {
-                formData.append(key, value as string | Blob);
-            }
+        formData.append("name", petData.name);
+        formData.append("gender", petData.gender);
+        formData.append("age", petData.age.toString());
+        formData.append("category", petData.category);
+        formData.append("description", petData.description);
+        formData.append("Prix", petData.Prix.toString());
+
+        images.forEach((image) => {
+            formData.append("images", image);
         });
 
-        const res = await axios.post("pets/create", formData, {
+        const res = await axios.post(`${import.meta.env.VITE_NEST_API_URL}pets/create`, formData, {
             headers: { "Content-Type": "multipart/form-data" },
         });
 
-        if (res.status === 201) {
-            return res.data;
-        } else {
-            throw new Error("Failed to add pet");
-        }
+        return res.data;
     } catch (err: any) {
         console.error("Error adding pet:", err);
         throw new Error(err.response?.data?.message || err.message || "Error adding pet");
     }
 };
-
 
 const getPetsApi = async () => {
     const res = await path.get("pets/findAllForAdmin");
