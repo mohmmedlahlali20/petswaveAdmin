@@ -13,20 +13,21 @@ export interface Category {
 }
 
 export interface Pets {
-    _id: string
-    name: string,
-    description: string,
-    gender: string,
-    age: number,
-    category: Category,
-    images: string[],
-    Prix: number,
+    _id?: string
+    name: string
+    description: string
+    gender: string
+    age: number
+    category: string
+    images: string[]
+    Prix: number
     isAvailable: boolean
 }
 
 
+
 export interface Commands {
-    _id: string
+    _id?: string
     petsId: Pets,
     userId: User,
     status: Status,
