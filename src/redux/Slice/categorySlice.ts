@@ -4,11 +4,11 @@ import { createCategoryApi, getCategoryApi } from "../service/api/category"
 
 
 const initialState: {
-    category: Category[],
+    categories: Category[],
     isLoading: Boolean,
     error: string | null
 } = {
-    category: [],
+    categories: [],
     isLoading: false,
     error: null
 }
@@ -24,7 +24,7 @@ export const addCategory = createAsyncThunk(
     }
 )
 
-export const getPets = createAsyncThunk('Category/get',
+export const getAllCategory = createAsyncThunk('Category/get',
     async (_, { rejectWithValue }) => {
         try {
             return await getCategoryApi()
@@ -48,22 +48,22 @@ const categorySlice = createSlice({
             })
             .addCase(addCategory.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.category.push(action.payload);
+                state.categories.push(action.payload);
             })
             .addCase(addCategory.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as string;
             })
-            .addCase(getPets.pending, (state) => {
+            .addCase(getAllCategory.pending, (state) => {
                 state.isLoading = true;
                 state.error = null;
             })
-            .addCase(getPets.fulfilled, (state, action: PayloadAction<Category[]>) => {
-                state.category = action.payload;
+            .addCase(getAllCategory.fulfilled, (state, action: PayloadAction<Category[]>) => {
+                state.categories = action.payload;
                 state.isLoading = false;
                 state.error = null;
             })
-            .addCase(getPets.rejected, (state, action) => {
+            .addCase(getAllCategory.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload as string;
             })
