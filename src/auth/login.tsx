@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginComponent = () => {
     const [email, setEmail] = useState<string>('mohmmed2010@gmail.com');
-    const [password, setPassword] = useState<string>('20018555passsword');
+    const [password, setPassword] = useState<string>('password123');
     const dispatch = useAppDispatch();
     const { error, isLoading, isAuthenticated } = useAppSelector((state) => state.User);
     const navigate = useNavigate()
