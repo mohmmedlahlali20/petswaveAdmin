@@ -10,7 +10,11 @@ const getCategoryApi = async () => {
 
 
 const createCategoryApi = async (name: string) =>{
-    const res = await path.post('category/create_Category',name)
+   
+    const res = await path.post('category/create_Category',{name})
+    console.log('====================================');
+    console.log(res.data);
+    console.log('====================================');
     return res.data
 }
 
