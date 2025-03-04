@@ -8,7 +8,7 @@ export interface User {
 
 
 export interface Category {
-    _id: any
+    _id: string
     name: string
 }
 

@@ -14,7 +14,7 @@ const navItems: NavItem[] = [
     { title: "Dashboard", href: "/", icon: Home },
     { title: "Analytics", href: "/analytics", icon: BarChart },
     { title: "Pets", href: "/Pets", icon: PawPrint },
-    { title: "Customers", href: "/customers", icon: Users },
+    { title: "Customers", href: "/users", icon: Users },
     { title: "Category", href: "/Category", icon: ChartBarStacked },
     { title: "Calendar", href: "/calendar", icon: Calendar },
     { title: "Notifications", href: "/notifications", icon: Bell },
