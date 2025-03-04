@@ -12,7 +12,7 @@ const loginApi = async ({email, password}:{email:string, password: string}) => {
 
 const GetAllUsers = async () => {
     const res = await path.get('users/findAll')
-    return res.data
+    return res.data || []
 }
 
 
