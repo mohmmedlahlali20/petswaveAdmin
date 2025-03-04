@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FiSearch } from "react-icons/fi";
+import { FiEdit, FiSearch } from "react-icons/fi";
 import { IoFilterSharp } from "react-icons/io5";
 import AddPets from "./AddPets";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
 import { getPets } from "../redux/Slice/petSlice";
+import { MdDelete } from "react-icons/md";
 
 export default function ListPets() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -100,75 +101,83 @@ export default function ListPets() {
             </div>
 
             <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow-md">
-    <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-        <thead className="bg-gray-600 dark:bg-gray-700 text-white">
-            <tr>
-                {["Name", "Gender", "Category", "Age", "Price", "Description", "Image"].map((heading) => (
-                    <th 
-                        key={heading} 
-                        className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
-                    >
-                        {heading}
-                    </th>
-                ))}
-            </tr>
-        </thead>
-        <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-            {filteredPets.length > 0 ? (
-                filteredPets.map((pet) => (
-                    <tr 
-                        key={pet._id} 
-                        className="even:bg-gray-50 dark:even:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-150"
-                    >
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                            {pet.name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
-                            {pet.gender }
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
-                            {pet.category?.name}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
-                            {pet.age ? `${pet.age} ${pet.age === 1 ? "week" : "weeks"}` : "Unknown"}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-indigo-600 dark:text-indigo-400">
-                            ${pet.Prix?.toFixed(2) }
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs">
-                            {pet.description ? (
-                                <span title={pet.description}>
-                                    {pet.description.slice(0, 30)}...
-                                </span>
-                            ) : "No description"}
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
-                            {pet.images && pet.images.length > 0 ? (
-                                <img 
-                                    src={pet.images[0]} 
-                                    alt={pet.name} 
-                                    className="w-16 h-16 object-cover rounded-md border border-gray-200 dark:border-gray-700"
-                                    
-                                />
-                            ) : (
-                                <span className="text-gray-400">No image</span>
-                            )}
-                        </td>
-                    </tr>
-                ))
-            ) : (
-                <tr>
-                    <td 
-                        colSpan={7} 
-                        className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400"
-                    >
-                        No pets found matching your filters. Try adjusting your search criteria.
-                    </td>
-                </tr>
-            )}
-        </tbody>
-    </table>
-</div>
+                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead className="bg-gray-600 dark:bg-gray-700 text-white">
+                        <tr>
+                            {["Name", "Gender", "Category", "Age", "Price", "Description", "Image", "action"].map((heading) => (
+                                <th
+                                    key={heading}
+                                    className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
+                                >
+                                    {heading}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                        {filteredPets.length > 0 ? (
+                            filteredPets.map((pet) => (
+                                <tr
+                                    key={pet._id}
+                                    className="even:bg-gray-50 dark:even:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors duration-150"
+                                >
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
+                                        {pet.name}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                        {pet.gender}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                        {pet.category?.name}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-300">
+                                        {pet.age ? `${pet.age} ${pet.age === 1 ? "week" : "weeks"}` : "Unknown"}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+                                        ${pet.Prix?.toFixed(2)}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs">
+                                        {pet.description ? (
+                                            <span title={pet.description}>
+                                                {pet.description.slice(0, 30)}...
+                                            </span>
+                                        ) : "No description"}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300">
+                                        {pet.images && pet.images.length > 0 ? (
+                                            <img
+                                                src={pet.images[0]}
+                                                alt={pet.name}
+                                                className="w-16 h-16 object-cover rounded-md border border-gray-200 dark:border-gray-700"
+
+                                            />
+                                        ) : (
+                                            <span className="text-gray-400">No image</span>
+                                        )}
+                                    </td>
+                                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs flex items-center space-x-2">
+                                        <button className="p-2 rounded-md text-blue-500 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                                            <FiEdit className="w-5 h-5" />
+                                        </button>
+                                        <button className="p-2 rounded-md text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">
+                                            <MdDelete className="w-5 h-5" />
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td
+                                    colSpan={7}
+                                    className="px-6 py-4 text-center text-sm text-gray-500 dark:text-gray-400"
+                                >
+                                    No pets found matching your filters. Try adjusting your search criteria.
+                                </td>
+                            </tr>
+                        )}
+                    </tbody>
+                </table>
+            </div>
             {isPopupOpen && (
                 <AddPets isOpen={isPopupOpen} onClose={handleClosePopup} />
             )}
