@@ -1,9 +1,12 @@
 export interface User {
+    _id?:string
     firstName: string;
     lastName: string;
     avatar?: string | null;
     email: string;
     password: string;
+    role:string
+    isVerified:boolean
 }
 
 

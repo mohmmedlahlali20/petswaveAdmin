@@ -14,7 +14,7 @@ const initialState: {
     userId: string | null;
     isOTPSent: boolean;
     isOTPVerified: boolean;
-    users: User[] | null
+    users: User[] 
 } = {
     user: null,
     userProfile: null,
@@ -25,7 +25,7 @@ const initialState: {
     userId: null,
     isOTPSent: false,
     isOTPVerified: false,
-    users: null
+    users: []
 };
 
 
@@ -48,7 +48,7 @@ export const Login = createAsyncThunk(
 export const GettingUsers = createAsyncThunk('user/GetAll', async (_, { rejectWithValue }) => {
     try {
         const res = await GetAllUsers()
-        return res
+        return res || []
     } catch (err: any) {
         return rejectWithValue(err.response?.data?.message || ' failed to get users');
 
