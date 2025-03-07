@@ -18,6 +18,9 @@ import {
 import {
     GetUsers
 } from "../users/index.ts";
+import {
+    Commands
+} from "../commands";
 
 
 const router = createBrowserRouter([
@@ -42,12 +45,16 @@ const router = createBrowserRouter([
                 element: <GetUsers />
             },
             {
+                path: '/Commands',
+                element: <Commands />
+            },
+            {
                 path: '*',
                 element: <NotFoundPets />
             },
         ]
     },
-    
+
     {
         path: '/login',
         element: <LoginComponent />
