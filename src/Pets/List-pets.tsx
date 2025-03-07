@@ -7,6 +7,8 @@ import AddPets from "./AddPets";
 import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
 import { getPets } from "../redux/Slice/petSlice";
 import { MdDelete } from "react-icons/md";
+import { CgUnavailable } from "react-icons/cg";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 export default function ListPets() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -104,7 +106,7 @@ export default function ListPets() {
                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                     <thead className="bg-gray-600 dark:bg-gray-700 text-white">
                         <tr>
-                            {["Name", "Gender", "Category", "Age", "Price", "Description", "Image", "action"].map((heading) => (
+                            {["Name", "Gender", "Category", "Age", "Price", "Description", "Image", "isAvailable", "action"].map((heading) => (
                                 <th
                                     key={heading}
                                     className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider"
@@ -154,6 +156,9 @@ export default function ListPets() {
                                         ) : (
                                             <span className="text-gray-400">No image</span>
                                         )}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-semibold text-white dark:text-gray-500">
+                                        {pet.isAvailable ? <IoMdCheckmarkCircleOutline className="text-green-500 text-2xl ml-5"  />: <CgUnavailable className="text-red-500 text-2xl ml-5" />}
                                     </td>
                                     <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs flex items-center space-x-2">
                                         <button className="p-2 rounded-md text-blue-500 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:hover:bg-gray-700 dark:focus:ring-offset-gray-800">

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import UserReducer from '../Slice/userSlice.ts'
 import PetsReducer from '../Slice/petSlice.ts'
 import categoryReducer from '../Slice/categorySlice.ts'
+import commandReducer from '../Slice/commandSlice.ts'
 
 
 
@@ -9,7 +10,8 @@ const store = configureStore({
   reducer: {
     User: UserReducer,
     pet: PetsReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    command: commandReducer
   },
 });
 
