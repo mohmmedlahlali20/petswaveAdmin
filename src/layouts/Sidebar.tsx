@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Settings, Users, ChartBarStacked, BarChart, Mail, Bell, Calendar, HelpCircle, Menu, X, PawPrint} from "lucide-react";
+import { Home, Settings, Users, ChartBarStacked, BarChart, Mail, Bell, ShoppingCart, HelpCircle, Menu, X, PawPrint} from "lucide-react";
 import { useState } from "react";
 import { useAppSelector } from "../hooks/useAppDispatch";
 import Default from '../assets/default.png'
@@ -16,7 +16,7 @@ const navItems: NavItem[] = [
     { title: "Pets", href: "/Pets", icon: PawPrint },
     { title: "Customers", href: "/users", icon: Users },
     { title: "Category", href: "/Category", icon: ChartBarStacked },
-    { title: "Calendar", href: "/calendar", icon: Calendar },
+    { title: "Commands", href: "/Commands", icon: ShoppingCart },
     { title: "Notifications", href: "/notifications", icon: Bell },
     { title: "Settings", href: "/settings", icon: Settings },
     { title: "Help & Support", href: "/help", icon: HelpCircle },
