@@ -68,16 +68,16 @@ const petSlice = createSlice({
                 state.isLoading = true;
                 state.error = null;
             })
-        .addCase(getPets.fulfilled, (state, action: PayloadAction<Pets[]>) => {
-            state.pets = action.payload;
-            state.isLoading = false;
-            state.error = null;
-        })
-        .addCase(getPets.rejected, (state, action) => {
-            state.isLoading = false;
-            state.error = action.payload as string;
-        })
-}
+            .addCase(getPets.fulfilled, (state, action: PayloadAction<Pets[]>) => {
+                state.pets = action.payload;
+                state.isLoading = false;
+                state.error = null;
+            })
+            .addCase(getPets.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload as string;
+            })
+    }
 });
 
 
