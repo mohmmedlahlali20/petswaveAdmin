@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
 import { Search, Edit, Trash2, PlusCircle } from 'lucide-react';
 import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
-import { addCategory, getAllCategory, removeCategory } from "../redux/Slice/categorySlice";
+import { addCategory, getAllCategory, removeCategory, updateCategory } from "../redux/Slice/categorySlice";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Category } from "../constant/type";
 
 export default function CategoryList() {
     const { isLoading, error, categories } = useAppSelector((state) => state.category);
     const dispatch = useAppDispatch();
     const [searchTerm, setSearchTerm] = useState("");
     const [name, setName] = useState("");
+    const [editCategory, setEditCategory] = useState<Category | null>(null);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false); 
 
     useEffect(() => {
         const getCategory = async () => {
@@ -21,7 +24,7 @@ export default function CategoryList() {
         };
 
         getCategory();
-    }, [dispatch, categories]);
+    }, [dispatch]);
 
     const handleAddCategory = async () => {
         if (!name) return;
@@ -45,7 +48,27 @@ export default function CategoryList() {
         }
     };
 
-    const filteredcategory = categories.filter(Cat =>
+    const handleEditCategory = (category: Category) => {
+        setEditCategory(category); 
+        setName(category.name);
+        setIsEditModalOpen(true); 
+    };
+
+    const handleUpdateCategory = async () => {
+        if (!name || !editCategory) return;
+        try {
+            await dispatch(updateCategory({ categoryId: editCategory._id, name })).unwrap();
+            setIsEditModalOpen(false); 
+            setName(""); 
+            setEditCategory(null);
+            toast.success("Category updated successfully!");
+        } catch (err: any) {
+            console.error('Error updating category', err);
+            toast.error("Error updating category!");
+        }
+    };
+
+    const filteredCategory = categories.filter(Cat =>
         Cat.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -115,7 +138,7 @@ export default function CategoryList() {
                             <span>Loading categories...</span>
                         ) : (
                             <>
-                                Showing <span className="font-semibold">{filteredcategory.length}</span> of <span className="font-semibold">{categories.length}</span> categories
+                                Showing <span className="font-semibold">{filteredCategory.length}</span> of <span className="font-semibold">{categories.length}</span> categories
                             </>
                         )}
                     </div>
@@ -138,8 +161,8 @@ export default function CategoryList() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                                {filteredcategory.length > 0 ? (
-                                    filteredcategory.map((Cat) => (
+                                {filteredCategory.length > 0 ? (
+                                    filteredCategory.map((Cat) => (
                                         <tr
                                             key={Cat._id}
                                             className="hover:bg-gray-900 dark:hover:bg-gray-750 transition-colors duration-150"
@@ -150,6 +173,7 @@ export default function CategoryList() {
                                             <td className="px-6 py-4 whitespace-nowrap text-sm">
                                                 <div className="flex items-center space-x-3">
                                                     <button
+                                                        onClick={() => handleEditCategory(Cat)}
                                                         className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors duration-150"
                                                         aria-label="Edit"
                                                     >
@@ -178,6 +202,35 @@ export default function CategoryList() {
                     </div>
                 </div>
             </div>
+
+            {isEditModalOpen && (
+                <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center">
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-sm w-full">
+                        <h2 className="text-xl font-semibold mb-4">Edit Category</h2>
+                        <input
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                            placeholder="Category name"
+                        />
+                        <div className="flex items-center justify-end space-x-3 mt-4">
+                            <button
+                                onClick={handleUpdateCategory}
+                                className="bg-primary text-white px-4 py-2 rounded-lg"
+                            >
+                                Update
+                            </button>
+                            <button
+                                onClick={() => setIsEditModalOpen(false)}
+                                className="bg-gray-500 text-white px-4 py-2 rounded-lg"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <ToastContainer />
         </div>
