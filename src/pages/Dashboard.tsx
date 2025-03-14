@@ -35,10 +35,7 @@ export function Dashboard() {
         { name: "Available", value: availablePets },
         { name: "Unavailable", value: unavailablePets }
     ];
-    const revenueData = [
-        { name: "Revenue", value: totalAmount },
-        { name: "No Revenue", value: totalAmount === 0 ? 1 : 0 }
-    ];
+    
 
     const COLORS = {
         users: ["#4CAF50", "#FF5733"],
@@ -106,7 +103,7 @@ export function Dashboard() {
                                         label={({ name, value }) => `${name}: ${value}`}
                                         labelLine={true}
                                     >
-                                        {userVerificationData.map((entry, index) => (
+                                        {userVerificationData.map((_entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS.users[index % COLORS.users.length]} />
                                         ))}
                                     </Pie>
@@ -131,7 +128,7 @@ export function Dashboard() {
                                         label={({ name, value }) => `${name}: ${value}`}
                                         labelLine={true}
                                     >
-                                        {petAvailabilityData.map((entry, index) => (
+                                        {petAvailabilityData.map((_entry, index) => (
                                             <Cell key={`cell-${index}`} fill={COLORS.pets[index % COLORS.pets.length]} />
                                         ))}
                                     </Pie>

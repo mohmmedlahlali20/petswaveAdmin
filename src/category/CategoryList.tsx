@@ -1,39 +1,53 @@
-import { useEffect, useState } from "react"
-import { Search, Edit, Trash2, PlusCircle } from 'lucide-react'
-import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch"
-import { addCategory, getAllCategory } from "../redux/Slice/categorySlice"
+import { useEffect, useState } from "react";
+import { Search, Edit, Trash2, PlusCircle } from 'lucide-react';
+import { useAppDispatch, useAppSelector } from "../hooks/useAppDispatch";
+import { addCategory, getAllCategory, removeCategory } from "../redux/Slice/categorySlice";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function CategoryList() {
-    const { isLoading, error, categories } = useAppSelector((state) => state.category)
-    const dispatch = useAppDispatch()
-    const [searchTerm, setSearchTerm] = useState("")
-    const [name, setName] = useState("")
+    const { isLoading, error, categories } = useAppSelector((state) => state.category);
+    const dispatch = useAppDispatch();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [name, setName] = useState("");
 
     useEffect(() => {
         const getCategory = async () => {
             try {
-                await dispatch(getAllCategory())
+                await dispatch(getAllCategory());
             } catch (err) {
-                console.error('Error fetching categories', err)
+                console.error('Error fetching categories', err);
             }
         };
 
-        getCategory()
-    }, [dispatch])
+        getCategory();
+    }, [dispatch, categories]);
 
     const handleAddCategory = async () => {
         if (!name) return;
         try {
             await dispatch(addCategory(name)).unwrap();
-            setName("")
+            setName("");
+            toast.success("Category added successfully!");
         } catch (err: any) {
-            console.error('Error adding category', err)
+            console.error('Error adding category', err);
+            toast.error("Error adding category!");
         }
-    }
+    };
+
+    const handleRemoveCategory = async (categoryId: string) => {
+        try {
+            await dispatch(removeCategory(categoryId)).unwrap();
+            toast.success("Category removed successfully!");
+        } catch (err: any) {
+            console.error('Error removing category', err);
+            toast.error("Error removing category!");
+        }
+    };
 
     const filteredcategory = categories.filter(Cat =>
         Cat.name.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    );
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 md:p-8 text-gray-900 dark:text-gray-100">
@@ -142,6 +156,7 @@ export default function CategoryList() {
                                                         <Edit className="h-5 w-5" />
                                                     </button>
                                                     <button
+                                                        onClick={() => handleRemoveCategory(Cat._id)}
                                                         className="text-red-600 dark:text-red-400 hover:text-red-800 dark:hover:text-red-300 transition-colors duration-150"
                                                         aria-label="Delete"
                                                     >
@@ -153,7 +168,7 @@ export default function CategoryList() {
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan={3} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
+                                        <td colSpan={2} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
                                             No categories found matching your search
                                         </td>
                                     </tr>
@@ -163,6 +178,8 @@ export default function CategoryList() {
                     </div>
                 </div>
             </div>
+
+            <ToastContainer />
         </div>
-    )
+    );
 }
