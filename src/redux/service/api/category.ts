@@ -19,9 +19,14 @@ const removeCategoryApi = async (categoryId: string) => {
     return res.data
 }
 
+const updateCategoryApi = async (categoryId: string, name: string) => {
+    const res = await path.put(`category/${categoryId}`, { name });
+    return res.data;
+  };
 
 export {
     getCategoryApi,
     createCategoryApi,
-    removeCategoryApi
+    removeCategoryApi,
+    updateCategoryApi
 }
