@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface User {
     _id?:string
     firstName: string;
@@ -44,4 +46,10 @@ export enum Status {
     InProgress = "InProgress",
     Completed = "completed",
     Cancelled = "cancelled"
+}
+
+export interface  NavItem {
+    title: string;
+    href: string;
+    icon: React.ElementType;
 }
