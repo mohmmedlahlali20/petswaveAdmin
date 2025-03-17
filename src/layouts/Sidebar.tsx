@@ -1,15 +1,10 @@
-"use client";
-
-import { Home, Settings, Users, ChartBarStacked, BarChart, Mail, Bell, ShoppingCart, HelpCircle, Menu, X, PawPrint} from "lucide-react";
+import { Home, Settings, Users, ChartBarStacked, BarChart, Bell, ShoppingCart, HelpCircle, Menu, X, PawPrint} from "lucide-react";
 import { useState } from "react";
 import { useAppSelector } from "../hooks/useAppDispatch";
 import Default from '../assets/default.png'
+import {NavItem} from "../constant/type.ts";
 
-type NavItem = {
-    title: string;
-    href: string;
-    icon: React.ElementType;
-};
+
 const navItems: NavItem[] = [
     { title: "Dashboard", href: "/", icon: Home },
     { title: "Analytics", href: "/analytics", icon: BarChart },
@@ -25,11 +20,7 @@ const navItems: NavItem[] = [
 export function Sidebar() {
     const [collapsed, setCollapsed] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const {user, isLoading, error}= useAppSelector((state) => state.User)
-
-    console.log('====================================');
-    console.log(user);
-    console.log('====================================');
+    const {user}= useAppSelector((state) => state.User)
 
     return (
         <>
